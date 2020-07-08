@@ -2,6 +2,7 @@
   "name": "todo-pr",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://yuriy1302.github.io/todo-pr/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -35,6 +36,5 @@
   },
   "devDependencies": {
     "gh-pages": "^3.1.0"
-  },
-  "homepage": "http://yuriy1302.github.io/todo-pr"
+  }
 }
