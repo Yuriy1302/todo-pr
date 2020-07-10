@@ -6,10 +6,10 @@ import Footer from './Footer';
 import TaskList from './TaskList';
 
 class App extends React.Component {
-
+    
     render() {
     
-        const stateTask = [
+        /* const stateTask = [
             { state: 'completed' },
             { state: 'editing' },
         ];
@@ -18,7 +18,7 @@ class App extends React.Component {
             'Completed task',
             'Editing task',
             'Active task'
-        ];
+        ]; */
 
         return (
             <div>
@@ -26,7 +26,7 @@ class App extends React.Component {
                     <h1>Todos</h1>
                     <NewTaskForm />
                 </header>
-                <TaskList stateTask={stateTask} text={text} />
+                <TaskList />
                 <Footer />
             </div>
         );
