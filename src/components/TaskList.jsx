@@ -2,15 +2,22 @@ import React from 'react';
 
 import Task from './Task';
 
-const TaskList = ({ stateTask, text }) => {
-
-    return (
-        <ul className="todo-list">
-            <Task state={ stateTask[0].state } text={text[0]} />
-            <Task text={text[1]} />
-            <Task text={text[2]} />
-        </ul>
-    );
+const TaskList = (props) => {
+  return (
+    <ul className="todo-list">
+      {
+        props.tasksList.length > 0 &&
+          props.tasksList.map((task) => {
+            return (
+              <Task onDeleted={props.onDeleted(task.id)}
+                  onMarkCompleted={props.onMarkCompleted(task.id)}
+                  task={task}
+                  key={task.id} />
+            )
+        })
+      }
+    </ul>
+  );
 };
 
 export default TaskList;

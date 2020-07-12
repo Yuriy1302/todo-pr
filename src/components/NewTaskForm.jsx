@@ -1,9 +1,15 @@
 import React from 'react';
 
-const NewTaskForm = () => {
-    return (
-        <input className="new-todo" placeholder="What needs to be done?" autoFocus></input>
-    );
+const NewTaskForm = (props) => {
+  return (
+    <form onSubmit={props.onHandleSubmit}>
+      <input className="new-todo"
+            onChange={props.onHandleChange}
+            value={props.newValue}
+            placeholder="What needs to be done?"
+            autoFocus />
+    </form>
+  );
 };
 
 export default NewTaskForm;
