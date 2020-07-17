@@ -2,18 +2,20 @@ import React from 'react';
 
 import TaskFilter from './TaskFilter';
 
-const Footer = () => {
-    return (
-        <footer className="footer">
-            <span className="todo-count">
-                1 items left
-            </span>
-            <TaskFilter />
-            <button className="clear-completed">
-                Clear completed
-            </button>
-        </footer>
-    );
+const Footer = (props) => {
+	console.log('in Footer filterState ', props.filterState)
+	return (
+		<footer className="footer">
+			<span className="todo-count">
+					{props.countItems} items left
+			</span>
+			<TaskFilter filterState={props.filterState}
+						onFilterNameChange={props.onFilterNameChange}/>
+			<button className="clear-completed"
+					onClick={props.onClearCompleted}>
+					Clear completed</button>
+		</footer>
+	);
 };
 
 export default Footer;

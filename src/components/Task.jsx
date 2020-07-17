@@ -1,41 +1,32 @@
 import React from 'react';
+import { formatDistanceToNow } from 'date-fns';
 
-class Task extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            completed: false,
-        };
-    }
-
-    onClickCompleted = () => {
-        const { completed } = this.state;
-        this.setState({
-            completed: !completed
-        });
-    }
-
-    render() {
-        const { text } = this.props;
-        const { completed } = this.state;
-        let completedClass = '';
-        if (completed) {
-            completedClass = 'completed';
-        }
-        return (
-            <li className={completedClass}>
-                <div className="view">
-                <input className="toggle" type="checkbox" onClick={this.onCompletedTask} />
-                <label>
-                    <span className="description" onClick={this.onClickCompleted}>{text}</span>
-                    <span className="created">created 17 seconds ago</span>
-                </label>
-                <button className="icon icon-edit"></button>
-                <button className="icon icon-destroy"></button>
-                </div>
-            </li>
-        );
-    }
+const Task = (props) => {
+    const { task } = props;
+    //console.log('task.state', task.state);
+    
+    return (
+        <li className={task.state === 'finished' ? 'completed' : ''}>
+            <div className="view">
+              <input className="toggle"
+                    type="checkbox"
+                    name={task.id}
+                    checked={task.isChecking}
+                    onChange={props.onMarkCompleted} />
+              <label>
+                  <span className="description">{task.text}</span>
+                  <span className="created">
+                      created&nbsp;
+                      {formatDistanceToNow(
+                          new Date(task.created),
+                          {includeSeconds: true})}
+                        &nbsp;ago</span>
+              </label>
+              <button className="icon icon-edit"></button>
+              <button className="icon icon-destroy" onClick={props.onDeleted}></button>
+            </div>
+        </li>
+    );
 };
 
 export default Task;

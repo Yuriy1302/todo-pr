@@ -2,15 +2,56 @@ import React from 'react';
 
 import Task from './Task';
 
-const TaskList = () => {
-    
+class TaskList extends React.Component {
+  /* static defaultProps = {
+    filterName: 'all'
+  } */
+  filteredTasks = (tasks, filterState) => {
+    const newTasksList = filterState === 'all' ? tasks : tasks.filter((t) => t.state === filterState);
+    return newTasksList;
+  }
+  render() {
+    const { tasksList, onDeleted, onMarkCompleted, filterState } = this.props;
+    const tasks = this.filteredTasks(tasksList, filterState);
     return (
-        <ul className="todo-list">
-            <Task text="Задача 1" />
-            <Task text="Задача 2" />
-            <Task text="Задача 3" />
-        </ul>
+      <ul className="todo-list">
+        {
+          tasks.length > 0 &&
+            tasks.map((task) => {
+              return (
+                <Task onDeleted={onDeleted(task.id)}
+                    onMarkCompleted={onMarkCompleted}
+                    task={task}
+                    key={task.id} />
+              )
+          })
+        }
+      </ul>
     );
+  }
 };
 
 export default TaskList;
+
+/* class TaskList extends React.Component {
+  
+  render() {
+    const { tasksList, onDeleted, onMarkCompleted } = this.props;
+    
+    return (
+      <ul className="todo-list">
+        {
+          tasksList.length > 0 &&
+            tasksList.map((task) => {
+              return (
+                <Task onDeleted={onDeleted(task.id)}
+                    onMarkCompleted={onMarkCompleted}
+                    task={task}
+                    key={task.id} />
+              )
+          })
+        }
+      </ul>
+    );
+  }
+}; */
