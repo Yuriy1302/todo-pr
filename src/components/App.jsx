@@ -78,14 +78,12 @@ class App extends React.Component {
     });
   };
 
-  // ГОТОВЫЕ ФУНКЦИИ - конец
-
-
   onFilterNameChange = (name) => {
     this.setState({filterState: name});
 	}
 
 
+  // ГОТОВЫЕ ФУНКЦИИ - конец
 
 
   render() {

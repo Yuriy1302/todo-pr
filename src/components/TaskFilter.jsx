@@ -14,14 +14,6 @@ class TaskFilter extends React.Component {
 	}
 
 	
-	
-	
-	/* onClick = (e) => {
-		e.preventDefault();
-		const name = e.target.name;
-		this.setState({isClick: name});
-	} */
-
 	onClick = (e) => {
 		e.preventDefault();
 		this.props.onFilterNameChange(e.target.name);
@@ -45,8 +37,6 @@ class TaskFilter extends React.Component {
 	}
 
 	render() {
-		//console.log('in TaskFilter filterName ', this.props.filterName)
-		//console.log('in TaskFilter isClick ', this.state.isClick)
 		const filterState = this.props.filterState;
 		return (
 			<ul className="filters">

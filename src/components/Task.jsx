@@ -3,8 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 
 const Task = (props) => {
     const { task } = props;
-    //console.log('task.state', task.state);
-    
+        
     return (
         <li className={task.state === 'finished' ? 'completed' : ''}>
             <div className="view">
