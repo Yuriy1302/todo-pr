@@ -3,7 +3,6 @@ import React from 'react';
 import TaskFilter from './TaskFilter';
 
 const Footer = (props) => {
-	console.log('in Footer filterState ', props.filterState)
 	return (
 		<footer className="footer">
 			<span className="todo-count">

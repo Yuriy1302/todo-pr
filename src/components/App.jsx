@@ -6,16 +6,13 @@ import Footer from './Footer';
 import TaskList from './TaskList';
 
 class App extends React.Component {
-  /* static defaultProps = {
-    filterName: 'all'
-  } */
 
   constructor(props) {
     super(props);
     this.state = {
       valueTask: '',
       tasksList: [],
-      filterState: 'all'
+      filterState: 'all',
     }
   }
 
@@ -80,18 +77,32 @@ class App extends React.Component {
 
   onFilterNameChange = (name) => {
     this.setState({filterState: name});
-	}
+  }
+  
+  onSaveEditing = (id, title) => {
+    this.setState(({tasksList}) => {
+      const index = tasksList.findIndex((task) => task.id === id);
+      const oldTask = tasksList[index];
+      const newTask = { 
+        ...oldTask,
+        text: title
+      };
+      const newList = [
+        ...tasksList.slice(0, index),
+        newTask,
+        ...tasksList.slice(index + 1)
+      ];
+      return { tasksList: newList };
+    });
+  };
 
 
   // ГОТОВЫЕ ФУНКЦИИ - конец
-
 
   render() {
     const { tasksList } = this.state;
     const countItems = tasksList.filter((task) => task.state === 'active').length;
 
-    
-    
     return (
       <section className="todoapp">
         <header className="header">
@@ -104,7 +115,10 @@ class App extends React.Component {
           <TaskList tasksList={this.state.tasksList}
                     onDeleted={this.onDeleted}
                     onMarkCompleted={this.onMarkCompleted}
-                    filterState={this.state.filterState} />
+                    filterState={this.state.filterState}
+                    
+                    //editMode={this.state.editMode}
+                    onSaveEditing={this.onSaveEditing} />
           <Footer countItems={countItems}
                   onClearCompleted={this.onClearCompleted}
                   filterState={this.state.filterState}

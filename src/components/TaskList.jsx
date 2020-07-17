@@ -6,10 +6,23 @@ class TaskList extends React.Component {
   /* static defaultProps = {
     filterName: 'all'
   } */
+  /* constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false
+    }
+  } */
+
+  
+
+
+
   filteredTasks = (tasks, filterState) => {
     const newTasksList = filterState === 'all' ? tasks : tasks.filter((t) => t.state === filterState);
     return newTasksList;
   }
+
+
   render() {
     const { tasksList, onDeleted, onMarkCompleted, filterState } = this.props;
     const tasks = this.filteredTasks(tasksList, filterState);
@@ -22,7 +35,8 @@ class TaskList extends React.Component {
                 <Task onDeleted={onDeleted(task.id)}
                     onMarkCompleted={onMarkCompleted}
                     task={task}
-                    key={task.id} />
+                    key={task.id}
+                    onSaveEditing={this.props.onSaveEditing} />
               )
           })
         }
