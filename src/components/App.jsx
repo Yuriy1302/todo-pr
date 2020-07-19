@@ -116,7 +116,7 @@ class App extends React.Component {
                     onDeleted={this.onDeleted}
                     onMarkCompleted={this.onMarkCompleted}
                     filterState={this.state.filterState}
-                    
+                                        
                     //editMode={this.state.editMode}
                     onSaveEditing={this.onSaveEditing} />
           <Footer countItems={countItems}

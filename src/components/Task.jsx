@@ -16,11 +16,18 @@ class Task extends React.Component {
 	}
 
 	onSaveTask = (e) => {
+		e.preventDefault();
 		const title = e.currentTarget.value;
 		const id = e.currentTarget.name;
-		this.props.onSaveEditing(id, title);
+		this.props.onSaveEditing(id, title); //Вызов функции обновления
 		this.setState({ editMode: !this.state.editMode });
 
+	}
+
+	onSaveTaskSubmit = (id, title) => (e) => {
+		e.preventDefault();
+		this.props.onSaveEditing(id, title); //Вызов функции обновления
+		this.setState({ editMode: !this.state.editMode });
 	}
 
 	onEditeMode = () => {
@@ -64,13 +71,15 @@ class Task extends React.Component {
               <button className="icon icon-destroy" onClick={this.props.onDeleted}></button>
             </div>
 						{this.state.editMode && 
-							<input type="text"
+							<form onSubmit={this.onSaveTaskSubmit(task.id, this.state.editValue)}>
+								<input type="text"
 										className="edit"
 										name={task.id}
 										value={this.state.editValue}
 										onChange={this.onChange}
 										onBlur={this.onSaveTask}
 										autoFocus />
+							</form>
 						}
         </li>
 		);
