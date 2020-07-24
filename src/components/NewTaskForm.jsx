@@ -7,9 +7,14 @@ const NewTaskForm = (props) => {
             onChange={props.onChangeValue}
             value={props.valueTask}
             placeholder="What needs to be done?"
-            autoFocus />
+            autoFocus
+            required />
     </form>
   );
 };
+
+NewTaskForm.defaultProps = {
+  onSubmit: () => {},
+}
 
 export default NewTaskForm;

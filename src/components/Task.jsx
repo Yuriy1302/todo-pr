@@ -2,6 +2,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 
 class Task extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,14 +20,14 @@ class Task extends React.Component {
 		e.preventDefault();
 		const title = e.currentTarget.value;
 		const id = e.currentTarget.name;
-		this.props.onSaveEditing(id, title); //Вызов функции обновления
+		this.props.onSaveEditing(id, title);
 		this.setState({ editMode: !this.state.editMode });
 
 	}
 
 	onSaveTaskSubmit = (id, title) => (e) => {
 		e.preventDefault();
-		this.props.onSaveEditing(id, title); //Вызов функции обновления
+		this.props.onSaveEditing(id, title);
 		this.setState({ editMode: !this.state.editMode });
 	}
 

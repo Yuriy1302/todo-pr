@@ -4,7 +4,9 @@ const filters = [['all', 'All'], ['active', 'Active'], ['finished', 'Completed']
 
 class TaskFilter extends React.Component {
 	
-	static filterName = this.props;
+	static defaultProps = {
+		filterState: () => {},
+	}
 	
 	constructor(props) {
 		super(props);
@@ -12,13 +14,11 @@ class TaskFilter extends React.Component {
 			isClick: this.props.filterState,
 		}
 	}
-
 	
 	onClick = (e) => {
 		e.preventDefault();
 		this.props.onFilterNameChange(e.target.name);
-	}
-	
+	}	
 
 	renderFilterButtons = ([filterName, name], filterState) => {
 		const classNames = filterName === filterState ? 'selected' : '';
@@ -47,28 +47,4 @@ class TaskFilter extends React.Component {
 };
 
 export default TaskFilter;
-
-/* class TaskFilter extends React.Component {
-	
-	render() {
-
-		return (
-			<ul className="filters">
-				<li>
-					<button className="selected">All</button>
-				</li>
-				<li>
-					<button>Active</button>
-				</li>
-				<li>
-					<button>Completed</button>
-				</li>
-			</ul>
-		);
-	}
-}
- */	
-
-
-
 

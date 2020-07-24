@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TaskFilter from './TaskFilter';
 
@@ -16,5 +17,15 @@ const Footer = (props) => {
 		</footer>
 	);
 };
+
+Footer.defaultProps = {
+	filterState: () => {},
+	onFilterNameChange: () => {},
+	onClearCompleted: () => {},
+}
+
+Footer.propTypes = {
+	countItems: PropTypes.number
+}
 
 export default Footer;

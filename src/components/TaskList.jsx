@@ -1,27 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Task from './Task';
 
 class TaskList extends React.Component {
-  /* static defaultProps = {
-    filterName: 'all'
-  } */
-  /* constructor(props) {
-    super(props);
-    this.state = {
-      editMode: false
-    }
-  } */
-
+  static defaultProps = {
+    onMarkCompleted: () => {},
+    filterState: 'all',
+  }
   
-
-
+  static propTypes = {
+    tasksList: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDeleted: PropTypes.func.isRequired,
+    onMarkCompleted: PropTypes.func,
+  }
 
   filteredTasks = (tasks, filterState) => {
     const newTasksList = filterState === 'all' ? tasks : tasks.filter((t) => t.state === filterState);
     return newTasksList;
   }
-
 
   render() {
     const { tasksList, onDeleted, onMarkCompleted, filterState } = this.props;
@@ -47,25 +44,3 @@ class TaskList extends React.Component {
 
 export default TaskList;
 
-/* class TaskList extends React.Component {
-  
-  render() {
-    const { tasksList, onDeleted, onMarkCompleted } = this.props;
-    
-    return (
-      <ul className="todo-list">
-        {
-          tasksList.length > 0 &&
-            tasksList.map((task) => {
-              return (
-                <Task onDeleted={onDeleted(task.id)}
-                    onMarkCompleted={onMarkCompleted}
-                    task={task}
-                    key={task.id} />
-              )
-          })
-        }
-      </ul>
-    );
-  }
-}; */

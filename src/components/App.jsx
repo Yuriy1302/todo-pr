@@ -6,7 +6,7 @@ import Footer from './Footer';
 import TaskList from './TaskList';
 
 class App extends React.Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,6 @@ class App extends React.Component {
     }
   }
 
-  // ГОТОВЫЕ ФУНКЦИИ - начало
   onChangeValue = (event) => {
     event.preventDefault();
     this.setState({ valueTask: event.target.value });
@@ -96,9 +95,6 @@ class App extends React.Component {
     });
   };
 
-
-  // ГОТОВЫЕ ФУНКЦИИ - конец
-
   render() {
     const { tasksList } = this.state;
     const countItems = tasksList.filter((task) => task.state === 'active').length;
@@ -116,8 +112,6 @@ class App extends React.Component {
                     onDeleted={this.onDeleted}
                     onMarkCompleted={this.onMarkCompleted}
                     filterState={this.state.filterState}
-                                        
-                    //editMode={this.state.editMode}
                     onSaveEditing={this.onSaveEditing} />
           <Footer countItems={countItems}
                   onClearCompleted={this.onClearCompleted}
