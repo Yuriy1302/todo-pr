@@ -5,42 +5,42 @@ import Task from './Task';
 
 class TaskList extends React.Component {
   static defaultProps = {
-    onMarkCompleted: () => {},
     filterState: 'all',
-  }
-  
+  };
+
   static propTypes = {
+    filterState: PropTypes.string,
     tasksList: PropTypes.arrayOf(PropTypes.object).isRequired,
     onDeleted: PropTypes.func.isRequired,
-    onMarkCompleted: PropTypes.func,
-  }
+    onCompleted: PropTypes.func.isRequired,
+    onSaveEditing: PropTypes.func.isRequired,
+  };
 
   filteredTasks = (tasks, filterState) => {
-    const newTasksList = filterState === 'all' ? tasks : tasks.filter((t) => t.state === filterState);
+    const newTasksList = filterState === 'all' ? tasks : tasks.filter((task) => task.state === filterState);
     return newTasksList;
-  }
+  };
 
   render() {
-    const { tasksList, onDeleted, onMarkCompleted, filterState } = this.props;
+    const { tasksList, onDeleted, onCompleted, filterState, onSaveEditing } = this.props;
     const tasks = this.filteredTasks(tasksList, filterState);
     return (
       <ul className="todo-list">
-        {
-          tasks.length > 0 &&
-            tasks.map((task) => {
-              return (
-                <Task onDeleted={onDeleted(task.id)}
-                    onMarkCompleted={onMarkCompleted}
-                    task={task}
-                    key={task.id}
-                    onSaveEditing={this.props.onSaveEditing} />
-              )
-          })
-        }
+        {tasks.length > 0 &&
+          tasks.map((task) => {
+            return (
+              <Task
+                onDeleted={onDeleted(task.id)}
+                onCompleted={onCompleted}
+                task={task}
+                key={task.id}
+                onSaveEditing={onSaveEditing}
+              />
+            );
+          })}
       </ul>
     );
   }
-};
+}
 
 export default TaskList;
-
