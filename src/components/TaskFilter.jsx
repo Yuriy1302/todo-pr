@@ -14,7 +14,7 @@ class TaskFilter extends React.Component {
     onFilterNameChange: PropTypes.func.isRequired,
   };
 
-  onClick = (event) => {
+  onFilterSelection = (event) => {
     event.preventDefault();
     const { onFilterNameChange } = this.props;
     onFilterNameChange(event.target.name);
@@ -29,7 +29,7 @@ class TaskFilter extends React.Component {
           className={classNames}
           name={filterName}
           data-test={`task-filter-${filterName}`}
-          onClick={this.onClick}
+          onClick={this.onFilterSelection}
         >
           {name}
         </button>

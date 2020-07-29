@@ -27,7 +27,7 @@ class App extends React.Component {
       id: uniqueId(),
       text: valueTask,
       state: 'active',
-      isChecking: false,
+      isCompleted: false,
       created: Date.now(),
     };
     this.setState(({ tasksList }) => {
@@ -47,7 +47,7 @@ class App extends React.Component {
       const newTask = {
         ...oldTask,
         state: oldTask.state === 'active' ? 'finished' : 'active',
-        isChecking: !oldTask.isChecking,
+        isCompleted: !oldTask.isCompleted,
       };
       const newList = [...tasksList.slice(0, index), newTask, ...tasksList.slice(index + 1)];
       return { tasksList: newList };

@@ -21,25 +21,23 @@ class TaskList extends React.Component {
     return newTasksList;
   };
 
-  render() {
-    const { tasksList, onDeleted, onCompleted, filterState, onSaveEditing } = this.props;
-    const tasks = this.filteredTasks(tasksList, filterState);
+  renderTask = (task) => {
+    const { onDeleted, onCompleted, onSaveEditing } = this.props;
     return (
-      <ul className="todo-list">
-        {tasks.length > 0 &&
-          tasks.map((task) => {
-            return (
-              <Task
-                onDeleted={onDeleted(task.id)}
-                onCompleted={onCompleted}
-                task={task}
-                key={task.id}
-                onSaveEditing={onSaveEditing}
-              />
-            );
-          })}
-      </ul>
+      <Task
+        onDeleted={onDeleted(task.id)}
+        onCompleted={onCompleted}
+        task={task}
+        key={task.id}
+        onSaveEditing={onSaveEditing}
+      />
     );
+  };
+
+  render() {
+    const { tasksList, filterState } = this.props;
+    const tasks = this.filteredTasks(tasksList, filterState);
+    return <ul className="todo-list">{tasks.length > 0 && tasks.map(this.renderTask)}</ul>;
   }
 }
 

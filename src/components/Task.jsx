@@ -36,7 +36,7 @@ class Task extends React.Component {
     });
   };
 
-  onSaveTaskSubmit = (id, title) => (event) => {
+  onTaskSubmit = (id, title) => (event) => {
     event.preventDefault();
     const { onSaveEditing } = this.props;
     onSaveEditing(id, title);
@@ -53,15 +53,28 @@ class Task extends React.Component {
     });
   };
 
+  renderEditInput = (task, editValue) => {
+    return (
+      <form onSubmit={this.onTaskSubmit(task.id, editValue)}>
+        <input
+          type="text"
+          className="edit"
+          name={task.id}
+          value={editValue}
+          onChange={this.onChange}
+          onBlur={this.onSaveTask}
+        />
+      </form>
+    );
+  };
+
   render() {
     const { task, onCompleted, onDeleted } = this.props;
 
     const { editMode, editValue } = this.state;
 
-    let classNames = '';
-    if (task.state === 'finished') {
-      classNames = 'completed';
-    } else {
+    let classNames = 'completed';
+    if (task.state === 'active') {
       classNames = '';
     }
 
@@ -72,12 +85,12 @@ class Task extends React.Component {
     return (
       <li className={classNames}>
         <div className="view">
-          <input className="toggle" type="checkbox" name={task.id} checked={task.isChecking} onChange={onCompleted} />
+          <input className="toggle" type="checkbox" name={task.id} checked={task.isCompleted} onChange={onCompleted} />
           <label>
             <span className="description">{task.text}</span>
             <span className="created">
               created&nbsp;
-              {formatDistanceToNow(new Date(task.created), { includeSeconds: true })}
+              {formatDistanceToNow(task.created, { includeSeconds: true })}
               &nbsp;ago
             </span>
           </label>
@@ -90,18 +103,7 @@ class Task extends React.Component {
           />
           <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete task" />
         </div>
-        {editMode && (
-          <form onSubmit={this.onSaveTaskSubmit(task.id, editValue)}>
-            <input
-              type="text"
-              className="edit"
-              name={task.id}
-              value={editValue}
-              onChange={this.onChange}
-              onBlur={this.onSaveTask}
-            />
-          </form>
-        )}
+        {editMode && this.renderEditInput(task, editValue)}
       </li>
     );
   }
