@@ -3,6 +3,8 @@ import { formatDistanceToNow } from 'date-fns';
 
 import PropTypes from 'prop-types';
 
+import Timer from './Timer';
+
 class Task extends React.Component {
   static propTypes = {
     task: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
@@ -87,8 +89,9 @@ class Task extends React.Component {
         <div className="view">
           <input className="toggle" type="checkbox" name={task.id} checked={task.isCompleted} onChange={onCompleted} />
           <label>
-            <span className="description">{task.text}</span>
-            <span className="created">
+            <span className="title">{task.text}</span>
+            <Timer completed={task.isCompleted} />
+            <span className="description">
               created&nbsp;
               {formatDistanceToNow(task.created, { includeSeconds: true })}
               &nbsp;ago
