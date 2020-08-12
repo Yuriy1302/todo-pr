@@ -29,6 +29,7 @@ class App extends React.Component {
       state: 'active',
       isCompleted: false,
       created: Date.now(),
+      timer: 0
     };
     this.setState(({ tasksList }) => {
       const newList = [newTask, ...tasksList];
@@ -86,6 +87,19 @@ class App extends React.Component {
     });
   };
 
+  updateTimer = (id, timeResult) => {
+    this.setState(({ tasksList }) => {
+      const index = tasksList.findIndex((task) => task.id === id);
+      const oldTask = tasksList[index];
+      const newTask = {
+        ...oldTask,
+        timer: timeResult,
+      };
+      const newList = [...tasksList.slice(0, index), newTask, ...tasksList.slice(index + 1)];
+      return { tasksList: newList };
+    });
+  };
+
   render() {
     const { tasksList, valueTask, filterState } = this.state;
     const countItems = tasksList.filter((task) => task.state === 'active').length;
@@ -103,6 +117,7 @@ class App extends React.Component {
             onCompleted={this.onCompleted}
             filterState={filterState}
             onSaveEditing={this.onSaveEditing}
+            updateTimer={this.updateTimer}
           />
           <Footer
             countItems={countItems}

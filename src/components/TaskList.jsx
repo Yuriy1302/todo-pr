@@ -30,6 +30,7 @@ class TaskList extends React.Component {
         task={task}
         key={task.id}
         onSaveEditing={onSaveEditing}
+        updateTimer={this.props.updateTimer}
       />
     );
   };

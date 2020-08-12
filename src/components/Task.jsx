@@ -18,8 +18,57 @@ class Task extends React.Component {
     this.state = {
       editMode: false,
       editValue: `${props.task.text}`,
+      timeStart: 0,
+      timeTemp: 0,
+      timeResult: 0,
+
     };
   }
+
+  componentDidMount() {
+    const { timer } = this.props.task;
+    this.setState({
+      timeResult: timer
+    })
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.intervalID);
+    const { updateTimer, task } = this.props;
+    updateTimer(task.id, this.state.timeResult);
+  }
+
+  tick = () => {
+    const { timeStart, timeTemp } = this.state;
+    this.setState({
+      timeResult: timeTemp + (Number(Date.now()) - timeStart),
+    });
+  };
+
+  startTimer = () => {
+    const { timeResult } = this.state;
+    clearTimeout(this.intervalID);
+    this.setState({
+      timeTemp: timeResult,
+      timeStart: Number(Date.now()),
+    });
+
+    const loop = () => {
+      this.intervalID = setTimeout(() => {
+        this.tick();
+        loop();
+      }, 1000);
+    };
+    loop();
+  };
+
+  stopTimer = () => {
+    const { timeResult } = this.state;
+    clearTimeout(this.intervalID);
+    this.setState({
+      timeTemp: timeResult,
+    });
+  };
 
   onChange = (event) => {
     event.preventDefault();
@@ -74,6 +123,10 @@ class Task extends React.Component {
     const { task, onCompleted, onDeleted } = this.props;
 
     const { editMode, editValue } = this.state;
+    
+    if (task.isCompleted) {
+      clearTimeout(this.intervalID);
+    }
 
     let classNames = 'completed';
     if (task.state === 'active') {
@@ -90,7 +143,10 @@ class Task extends React.Component {
           <input className="toggle" type="checkbox" name={task.id} checked={task.isCompleted} onChange={onCompleted} />
           <label>
             <span className="title">{task.text}</span>
-            <Timer completed={task.isCompleted} />
+            <Timer timeResult={this.state.timeResult}
+                  startTimer={this.startTimer}
+                  stopTimer={this.stopTimer}
+            />
             <span className="description">
               created&nbsp;
               {formatDistanceToNow(task.created, { includeSeconds: true })}
